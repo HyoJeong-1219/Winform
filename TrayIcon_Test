@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace TrayIcon_Test
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void VisibleChange(bool FormVisible, bool TrayIconVisible)
+            //폼 화면을 감추거나 보일때, 트레이 아이콘을 감추거나 보일때 사용 
+        {
+            this.Visible = FormVisible; // 폼의 Visible 속성 변경
+            this.nfiTray.Visible = TrayIconVisible; // 트레이 아이콘 컨트롤의 Visible 속성 변경
+        }
+
+        private void nfiTray_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTray_Click(object sender, EventArgs e)
+        {
+            VisibleChange(false, true); // 폼이보이지 않고 트레이가 보이는 상태 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true; // 완전히 프로그램이 종료되지 않도록 하는 상태(폼의 닫기버튼을 눌러도 폼이 종료되지 않음)
+            //상태표시줄에서 마우스 오른쪽 클릭을 하여 종료하도록 해야함
+            VisibleChange(true, false); //폼이 보이고 트레이가 보이지 않는 상태
+        }
+
+        private void 폼보이기ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VisibleChange(true, false);
+        }
+
+        private void nfiTray_DoubleClick(object sender, EventArgs e)
+        {
+            VisibleChange(true, false);
+        }
+
+        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.nfiTray.Visible = false;
+            Application.ExitThread(); // 애플리케이션을 실행하는 스레드를 종료하여 애플리케이션을 완전히 종료하도록함 
+        }
+    }
+}
