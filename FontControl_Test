@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FontControl_Test
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void tsbtnFont_Click(object sender, EventArgs e)
+        {
+            if(this.fontDlg.ShowDialog() == DialogResult.OK) // 글꼴 대화상자를 연뒤 확인 버튼을 누르면  if문이 실행
+            {
+                this.rtbText.SelectionFont = this.fontDlg.Font;
+            }
+        }
+
+        private void tsbtnColor_Click(object sender, EventArgs e)
+        {
+            if(this.colorDlg.ShowDialog() == DialogResult.OK)
+            {
+                this.rtbText.SelectionColor = this.colorDlg.Color;
+            }
+        }
+    }
+}
